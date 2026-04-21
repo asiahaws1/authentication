@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint
 
 import controllers
 
@@ -21,11 +21,14 @@ def get_active_products_route():
     return controllers.get_active_products()
 
 
-@product.route('/product/<product_id>', methods=['GET', 'PUT'])
-def product_by_id_route(product_id):
-    if request.method == 'PUT':
-        return controllers.update_product(product_id)
+@product.route('/product/<product_id>', methods=['GET'])
+def get_product_by_id_route(product_id):
     return controllers.get_product_by_id(product_id)
+
+
+@product.route('/product/<product_id>', methods=['PUT'])
+def update_product_route(product_id):
+    return controllers.update_product(product_id)
 
 
 @product.route('/product/company/<company_id>', methods=['GET'])
